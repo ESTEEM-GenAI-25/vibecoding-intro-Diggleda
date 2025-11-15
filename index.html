@@ -1,728 +1,669 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Portfolio Website PRD · Peter J. Gibbons</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Star Chart Systems | Production Line Optimization Strategy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      :root {
-        --fg: #142750;
-        --fg-secondary: #2d3f6e;
-        --card-bg: rgba(255, 255, 255, 0.96);
-        --accent: #1a2f6b;
-        --shadow: 0 24px 60px rgba(20, 39, 80, 0.16);
-        --radius: 28px;
-        --blur: blur(20px);
-        --max-width: 1100px;
-        --hero-padding-max: clamp(44px, 9vw, 64px);
-        --hero-padding-min: 8px;
-        --hero-gap-max: 18px;
-        --hero-gap-min: 0px;
-        --hero-title-max: clamp(2.8rem, 5.4vw, 3.9rem);
-        --hero-title-min: clamp(1.95rem, 4.2vw, 2.4rem);
-        --hero-compact-width: clamp(320px, 55vw, 640px);
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
       body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: #ffffff;
-        color: var(--fg);
-        display: flex;
-        justify-content: center;
-        padding: clamp(42px, 6vw, 72px);
-        position: relative;
+        font-feature-settings: "liga" off;
       }
-
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-        pointer-events: none;
-        background: url('photos/Background.webp') center top / cover no-repeat;
-        opacity: 0.9;
-        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.75) 35%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
-        -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.75) 35%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0) 100%);
+      .starfield {
+        background: radial-gradient(circle at 20% 20%, rgba(88, 143, 255, 0.18), transparent 40%), radial-gradient(circle at 80% 10%, rgba(129, 220, 255, 0.2), transparent 45%), #030712;
       }
-
-      .page {
-        width: min(100%, var(--max-width));
-        display: grid;
-        gap: clamp(48px, 8vw, 80px);
-        margin: 0 auto;
+      .glass {
+        backdrop-filter: blur(16px);
+        background: rgba(15, 23, 42, 0.7);
       }
-
-      .page-header {
-        position: sticky;
-        top: clamp(12px, 3vw, 32px);
-        z-index: 10;
-        width: 100%;
-        margin-bottom: 0;
-        padding-bottom: clamp(48px, 8vw, 96px);
-        display: flex;
-        justify-content: center;
-        --shrink-progress: 0;
-        --hero-bg-opacity: 0.12;
+      .logo-ring {
+        background: radial-gradient(circle at center, #092143 0%, #061022 60%, #030712 100%);
       }
-
-      .hero {
-        /* Full-width within page container */
-        width: 100%;
-        max-width: clamp(
-          var(--hero-compact-width),
-          calc(var(--max-width) * (1 - var(--shrink-progress)) + var(--hero-compact-width) * var(--shrink-progress)),
-          var(--max-width)
-        );
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: justify;
-        text-align-last: center;
-        padding: calc(
-          var(--hero-padding-min) +
-            (var(--hero-padding-max) - var(--hero-padding-min)) *
-            (1 - var(--shrink-progress))
-        );
-        min-height: clamp(56px, 9vh, 96px);
-        gap: calc( var(--hero-gap-max) * (1 - var(--shrink-progress)) );
-        background: rgba(255, 255, 255, var(--hero-bg-opacity));
-        backdrop-filter: var(--blur);
-        -webkit-backdrop-filter: var(--blur);
-        border-radius: var(--radius);
-        border: 1px solid rgba(255, 255, 255, 0.55);
-        box-shadow: 0 28px 58px rgba(15, 23, 42, 0.08);
-        transition: box-shadow 0.6s ease, background 0.6s ease, padding 0.45s ease, min-height 0.45s ease, max-width 0.55s cubic-bezier(0.22, 0.61, 0.36, 1), width 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
-        will-change: padding, gap;
+      .logo-ring img {
+        width: 70%;
+        height: auto;
+        object-fit: contain;
       }
-
-      .hero h1 {
-        margin: 0;
-        text-align: justify;
-        text-align-last: justify;
-        font-size: calc(
-          var(--hero-title-min) +
-            (var(--hero-title-max) - var(--hero-title-min)) *
-            (1 - var(--shrink-progress))
-        );
-        line-height: 1.05;
-        padding: 0 clamp(6px, 1.5vw, 14px);
-        letter-spacing: -0.01em;
-        max-width: 760px;
+      .floor-wrapper img {
+        filter: saturate(1) brightness(1);
       }
-
-      .hero p {
-        margin: 0;
-        text-align: justify;
-        text-align-last: justify;
-        font-size: clamp(1.05rem, 2.4vw, 1.26rem);
-        color: var(--fg-secondary);
-        line-height: 1.72;
-        max-width: 720px;
-        max-height: calc(320px * (1 - var(--shrink-progress)));
-        opacity: clamp(0, 1 - 1.05 * var(--shrink-progress), 1);
-        transform: translateY(calc(-10px * var(--shrink-progress)));
-        overflow: hidden;
-        transition: opacity 0.25s linear, transform 0.25s linear, max-height 0.25s linear;
-      }
-
-      .hero .content-list {
-        margin: 6px 0 0;
-        gap: 4px;
-        max-height: calc(360px * (1 - var(--shrink-progress)));
-        opacity: clamp(0, 1 - 1.05 * var(--shrink-progress), 1);
-        transform: translateY(calc(-10px * var(--shrink-progress)));
-        overflow: hidden;
-        transition: opacity 0.25s linear, transform 0.25s linear, max-height 0.25s linear;
-      }
-
-      .hero .content-list li {
-        padding: 0;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        gap: 4px;
-        text-align: justify;
-      }
-
-      .hero-photo {
-        width: clamp(120px, 22vw, 180px);
-        height: clamp(140px, 22vw, 200px);
-        border-radius: 24px;
-        object-fit: cover;
-        box-shadow: 0 18px 40px rgba(20, 39, 80, 0.18);
-        border: 3px solid rgba(255, 255, 255, 0.75);
-        margin: clamp(0px, 4vw, 5px) 0;
-        transition:
-          opacity 0.28s ease,
-          transform 0.28s ease,
-          max-height 0.28s ease,
-          margin 0.28s ease;
-      }
-
-      .hero .content-list li p {
-        text-align: justify;
-        text-align-last: justify;
-      }
-
-      .hero.hero--compact {
-        /* When compact, revert to content-width pill and center */
-        width: auto;
-        max-width: var(--hero-compact-width);
-        margin-left: auto;
-        margin-right: auto;
-        padding: clamp(12px, 3vw, 20px);
-        min-height: clamp(56px, 9vh, 96px);
-        gap: var(--hero-gap-min);
-        display: inline-flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .hero .content-list li strong {
-        font-size: 0.92rem;
-        color: rgba(17, 19, 24, 0.72);
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        text-align: justify;
-      }
-
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        background: rgba(26, 47, 107, 0.14);
-        border-radius: 999px;
-        padding: calc(9px * (1 - var(--shrink-progress)))
-          calc(18px * (1 - var(--shrink-progress)));
-        max-height: calc(38px * (1 - var(--shrink-progress)));
-        font-weight: 600;
-        color: var(--accent);
-        box-shadow: inset 0 0 0 calc(1px * (1 - var(--shrink-progress)))
-          rgba(26, 47, 107, 0.28);
-        text-transform: uppercase;
-        font-size: 0.82rem;
-        letter-spacing: 0.08em;
-        transition:
-          transform 0.25s linear,
-          opacity 0.25s linear,
-          padding 0.25s linear,
-          max-height 0.25s linear,
-          box-shadow 0.25s linear;
-        transform: translateY(calc(-4px * var(--shrink-progress)));
-        opacity: calc(1 - var(--shrink-progress));
-      }
-
-      main {
-        display: grid;
-        gap: clamp(44px, 7vw, 72px);
-        margin-top: clamp(60px, 12vw, 120px);
-      }
-
-      section {
-        display: grid;
-        gap: 28px;
-        background: var(--card-bg);
-        backdrop-filter: var(--blur);
-        -webkit-backdrop-filter: var(--blur);
-        padding: clamp(32px, 6vw, 48px);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        border: 1px solid rgba(208, 216, 232, 0.78);
-        scroll-margin-top: clamp(140px, 20vh, 220px);
-      }
-
-      section h2 {
-        margin: 0;
-        font-size: clamp(1.8rem, 3.4vw, 2.3rem);
-      }
-
-      .timeline {
-        display: grid;
-        gap: 32px;
-        position: relative;
-        padding-left: clamp(26px, 5vw, 50px);
-      }
-
-      .timeline::before {
-        content: "";
-        position: absolute;
-        top: var(--radius);
-        bottom: var(--radius);
-        left: 0;
-        width: 2px;
-        background: linear-gradient(#cbd5f5, rgba(26, 47, 107, 0.24));
-        opacity: 0.35;
-      }
-
-      .timeline-item {
-        position: relative;
-        padding: clamp(22px, 4vw, 32px);
-        padding-left: clamp(26px, 5vw, 42px);
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: calc(var(--radius) - 12px);
-        border: 1px solid rgba(208, 216, 232, 0.92);
-        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
-        display: grid;
-        gap: 16px;
-      }
-
-      .timeline-item::before {
-        display: none;
-      }
-
-      .timeline-item h3 {
-        margin: 0;
-        font-size: clamp(1.24rem, 2.5vw, 1.54rem);
-      }
-
-      .timeline-date {
-        margin: 0;
-        font-weight: 600;
-        color: var(--accent);
-        font-size: 0.96rem;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-
-      .timeline-description {
-        margin: 0;
-        color: var(--fg-secondary);
-        line-height: 1.7;
-      }
-
-      .resource-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      .resource-links a {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        padding: 10px 18px;
-        border-radius: 999px;
-        background: rgba(10, 38, 116, 0.16);
-        color: var(--accent);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.92rem;
-        transition: none;
-      }
-
-      .resource-links a:hover {
-        transform: none;
-        box-shadow: none;
-      }
-
-      .media-image {
-        width: 100%;
-        border-radius: calc(var(--radius) - 16px);
-        border: 1px solid rgba(194, 204, 224, 0.82);
-        box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12);
-      }
-
-      .contact-card {
-        align-items: center;
-        text-align: center;
-      }
-
-      .contact-card p {
-        max-width: 460px;
-        margin: 0 auto;
-        color: var(--fg-secondary);
-        line-height: 1.7;
-      }
-
-      .contact-actions {
-        display: inline-flex;
-        gap: 12px;
-        align-items: center;
-        justify-content: center;
-        margin: 12px auto 0;
-      }
-
-      .contact-button {
-        justify-self: center;
-        display: inline-flex;
-        align-items: center;
-        padding: 14px 28px;
-        background: var(--accent);
-        color: white;
-        border-radius: 999px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 1.02rem;
-        box-shadow: 0 18px 35px rgba(90, 103, 216, 0.35);
-        transition: transform 0.28s ease, box-shadow 0.28s ease;
-      }
-
-      .contact-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 22px 42px rgba(90, 103, 216, 0.4);
-      }
-
-      .contact-button.secondary {
-        background: transparent;
-        color: var(--accent);
-        box-shadow: inset 0 0 0 1px rgba(90, 103, 216, 0.38);
-      }
-
-      .contact-button.secondary:hover {
-        box-shadow:
-          inset 0 0 0 1px rgba(90, 103, 216, 0.6),
-          0 12px 28px rgba(90, 103, 216, 0.18);
-      }
-
-      .footer-note {
-        margin: 0;
-        font-size: 0.95rem;
-        color: var(--fg-secondary);
-        text-align: center;
-      }
-
-      @media (max-width: 720px) {
-        body {
-          padding: clamp(18px, 6vw, 40px);
-        }
-
-        .page-header {
-          top: clamp(6px, 4vw, 16px);
-          padding-bottom: clamp(28px, 10vw, 56px);
-          display: flex;
-          justify-content: center;
-        }
-
-        .hero {
-          width: 100%;
-          max-width: none;
-          min-height: clamp(56px, 9vh, 96px);
-          padding: clamp(14px, 7vw, 26px);
-          gap: clamp(8px, 5vw, 18px);
-          text-align: justify;
-          text-align-last: justify;
-        }
-
-        .hero h1 {
-          font-size: clamp(1.8rem, 7vw, 2.4rem);
-          line-height: 1.18;
-          text-align: justify;
-          text-align-last: justify;
-          padding: 0 clamp(6px, 4vw, 14px);
-        }
-
-        .hero p {
-          text-align: justify;
-          text-align-last: justify;
-          font-size: clamp(0.95rem, 4.2vw, 1.18rem);
-        }
-
-        .hero .content-list {
-          text-align: justify;
-        }
-
-        .hero.hero--compact {
-          width: auto;
-          max-width: clamp(320px, 70vw, 640px);
-          min-height: clamp(56px, 9vh, 96px);
-          display: inline-flex;
-          flex-direction: column;
-          align-items: center;
-          margin-left: auto;
-          margin-right: auto;
-          padding: clamp(10px, 2.6vw, 18px);
-        }
-
-        main {
-          margin-top: clamp(36px, 14vw, 72px);
-        }
-
-        .timeline-item {
-          padding: clamp(18px, 8vw, 28px);
-        }
-
-        .timeline {
-          padding-left: clamp(20px, 6vw, 32px);
-        }
-
-        .timeline::before {
-          left: clamp(9px, 4vw, 15px);
-        }
-
-        .timeline-item::before {
-          left: -12px;
-        }
+      canvas {
+        image-rendering: crisp-edges;
       }
     </style>
   </head>
-  <body>
-    <div class="page">
-      <header class="page-header">
-        <div class="hero" id="hero"></div>
+  <body class="min-h-screen starfield text-white">
+    <div class="relative overflow-hidden">
+      <div class="pointer-events-none absolute inset-0 opacity-50">
+        <div class="absolute left-[15%] top-[20%] h-1.5 w-1.5 rounded-full bg-white/70"></div>
+        <div class="absolute left-[80%] top-[35%] h-1 w-1 rounded-full bg-blue-300/60"></div>
+        <div class="absolute left-[40%] top-[70%] h-1 w-1 rounded-full bg-white/60"></div>
+        <div class="absolute left-[65%] top-[80%] h-1.5 w-1.5 rounded-full bg-sky-200/70"></div>
+      </div>
+
+      <header class="relative z-10 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+        <div class="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10 lg:flex-row lg:items-center lg:justify-between">
+          <div class="flex flex-1 flex-col gap-6 lg:flex-row lg:items-center">
+            <div class="logo-ring flex h-28 w-28 items-center justify-center rounded-full border border-cyan-500/40 shadow-2xl">
+              <img src="Star_Chart_Systems_Logo.png" alt="Star Chart Systems logo" />
+            </div>
+            <div>
+              <p class="text-sm uppercase tracking-[0.4em] text-slate-400">Strategic Technology Report</p>
+              <h1 class="mt-3 text-3xl font-semibold text-white sm:text-4xl">Star Chart Systems — Production Line Optimization Strategy</h1>
+              <p class="mt-4 max-w-3xl text-slate-300">
+                Star Chart Systems turns factory telemetry into a stellar map—streaming high-resolution motion data every quarter second, layering AI guidance, and surfacing bottlenecks the moment they appear.
+              </p>
+            </div>
+          </div>
+          <div class="glass w-full rounded-2xl border border-cyan-500/20 p-6 text-sm text-slate-200 shadow-2xl lg:max-w-xs">
+            <p class="text-xs uppercase tracking-[0.4em] text-slate-400">Constellation Snapshot</p>
+            <dl class="mt-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <dt>Avg. Cycle Time</dt>
+                <dd id="metric-cycle" class="font-semibold text-emerald-300">18.4s</dd>
+              </div>
+              <div class="flex items-center justify-between">
+                <dt>Throughput / hr</dt>
+                <dd id="metric-throughput" class="font-semibold text-sky-300">152</dd>
+              </div>
+              <div class="flex items-center justify-between">
+                <dt>Bottleneck Risk</dt>
+                <dd id="metric-risk" class="font-semibold text-amber-300">Moderate</dd>
+              </div>
+            </dl>
+            <p class="mt-4 text-xs text-slate-400">Metrics update in sync with the high-resolution pseudo sensors to mirror four samples per second.</p>
+          </div>
+        </div>
       </header>
 
-      <main id="content"></main>
+      <main class="relative z-10 mx-auto flex max-w-6xl flex-col gap-8 px-6 py-10">
+        <div class="rounded-3xl border border-cyan-500/40 bg-slate-900/70 p-6 shadow-2xl">
+          <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p class="text-xs uppercase tracking-[0.4em] text-slate-400">Constellation Map</p>
+              <h2 class="mt-2 text-2xl font-semibold text-white">Factory Flow · Live Trace</h2>
+            </div>
+            <div id="secondHighlights" class="flex flex-wrap gap-2 text-xs text-white">
+              <span class="rounded-full bg-emerald-500/60 px-3 py-1 text-slate-900">t-0s</span>
+              <span class="rounded-full bg-sky-500/50 px-3 py-1 text-slate-900">t-1s</span>
+              <span class="rounded-full bg-indigo-500/40 px-3 py-1 text-white/80">t-2s</span>
+            </div>
+          </div>
+          <div class="floor-wrapper relative mt-4 h-[32rem] w-full overflow-hidden rounded-3xl border border-white/10">
+            <img src="./Factory_Floor.jpg" alt="Factory floor reference" class="absolute inset-0 h-full w-full object-cover opacity-85" />
+            <div class="absolute inset-0 bg-gradient-to-br from-slate-950/5 via-slate-950/15 to-slate-950/30"></div>
+            <canvas id="factoryCanvas" class="relative z-10 h-full w-full"></canvas>
+          </div>
+          <p class="mt-3 text-sm text-slate-400">Live telemetry is sampled at 12 Hz; trails brighten for the most recent seconds to make velocity changes visible at a glance.</p>
+        </div>
 
-      <footer>
-        <p class="footer-note" id="footer-note"></p>
-      </footer>
+        <div class="flex flex-col gap-8 lg:flex-row">
+          <section class="flex-1 space-y-8">
+            <article class="rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-2xl">
+              <p class="text-xs uppercase tracking-[0.4em] text-slate-400">1 · Problem Statement</p>
+              <h2 class="mt-3 text-2xl font-semibold text-white">Speed & Cost Barriers</h2>
+            <p class="mt-4 text-slate-300">
+              Traditional line studies resemble dated sky surveys—slow, expensive, and blind to fleeting anomalies. Star Chart Systems solves the speed/cost equation by streaming telemetry directly from tagged parts and displaying their journey as a living map instead of a static report.
+            </p>
+            <p class="mt-3 text-slate-300">The result is a richer signal-to-noise ratio, accelerated improvement cycles, and zero dependence on facility-wide camera rigs.</p>
+          </article>
+
+          <article class="rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-2xl">
+            <p class="text-xs uppercase tracking-[0.4em] text-slate-400">2 · Target Market</p>
+            <h2 class="mt-3 text-2xl font-semibold text-white">Lean-Focused Manufacturers</h2>
+            <p class="mt-4 text-slate-300">
+              We serve small and mid-sized factories that already run lean programs but are priced out of enterprise analytics. Their engineers juggle spreadsheets, clipboards, and gut instinct—missing micro-stops that erode throughput.
+            </p>
+            <p class="mt-3 text-slate-300">By lowering the hardware and expertise threshold, Star Chart Systems lets these teams unlock enterprise-grade visibility without enterprise baggage.</p>
+          </article>
+
+          <article class="rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-2xl">
+            <p class="text-xs uppercase tracking-[0.4em] text-slate-400">3 · Solution Overview</p>
+            <h2 class="mt-3 text-2xl font-semibold text-white">Constellation-Level Tracking</h2>
+            <ul class="mt-4 list-disc space-y-2 pl-6 text-slate-300">
+              <li>Reusable, non-invasive tags secure to each unit and transmit motion, dwell, and micro-stop data 4× per second.</li>
+              <li>Wireless satellites orchestrate tag control, sync clocks, and stream telemetry directly to the Star Chart pipeline.</li>
+              <li>Engineers view an interactive factory plan with historical trails, configure notifications, and export raw data (CSV/JSON) instantly.</li>
+              <li>Collaborative chat enables natural-language exploration plus continual feedback loops to re-train the AI.</li>
+            </ul>
+          </article>
+
+          <article class="rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-2xl">
+            <p class="text-xs uppercase tracking-[0.4em] text-slate-400">4 · AI Integration</p>
+            <h2 class="mt-3 text-2xl font-semibold text-white">Predictive + Prescriptive Intelligence</h2>
+            <p class="mt-4 text-slate-300">
+              Our sequential anomaly detection model spots deviations from optimal flow just like astronomers detect wobbling stars. Each prediction is paired with quantified recommendations and surfaced through an LLM interface that runs on any device.
+            </p>
+            <p class="mt-3 text-slate-300">Inputs include position vectors, timestamp deltas, and operator feedback; outputs include heatmaps, severity scores, and natural-language actions.</p>
+          </article>
+
+          <article class="rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-2xl">
+            <p class="text-xs uppercase tracking-[0.4em] text-slate-400">5 · Value Proposition</p>
+            <h2 class="mt-3 text-2xl font-semibold text-white">Camera-Free, Always-On Coverage</h2>
+            <p class="mt-4 text-slate-300">
+              Star Chart Systems eliminates blind spots by following the part itself, not the line of sight. Tags are reusable, satellites are low-cost, and deployment can be completed in hours. This radically shifts the ROI curve for budget-conscious factories.
+            </p>
+          </article>
+
+          <article class="rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-2xl">
+            <p class="text-xs uppercase tracking-[0.4em] text-slate-400">6 · Future Vision</p>
+            <h2 class="mt-3 text-2xl font-semibold text-white">Autonomous Lean Orbits</h2>
+            <p class="mt-4 text-slate-300">
+              Aggregated telemetry across customers trains our proprietary Lean Insight Model, compounding intelligence like a continuously refined star catalog. Over time, production lines approximate self-optimizing constellations—minimizing waste automatically.
+            </p>
+          </article>
+        </section>
+
+        <aside class="flex w-full max-w-xl flex-col gap-6">
+          <div class="rounded-3xl border border-cyan-500/30 bg-slate-900/60 p-6 shadow-2xl">
+            <div class="flex items-center justify-between">
+              <p class="text-xs uppercase tracking-[0.4em] text-slate-400">Station Status</p>
+              <span class="text-xs text-emerald-300">Derived from live data</span>
+            </div>
+            <div id="stationStatus" class="mt-4 grid gap-3 sm:grid-cols-2"></div>
+          </div>
+
+          <div class="rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-2xl">
+            <div class="flex items-center justify-between">
+              <p class="text-xs uppercase tracking-[0.4em] text-slate-400">Real-Time Sensor Stream</p>
+              <span class="text-xs text-sky-300">12 Hz refresh</span>
+            </div>
+            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+              <button data-filter="all" class="filter-chip rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-2 text-left text-sm text-slate-200 hover:border-sky-400/60">All Units</button>
+              <button data-filter="fastest" class="filter-chip rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-2 text-left text-sm text-slate-200 hover:border-sky-400/60">Fastest Units</button>
+              <button data-filter="slowest" class="filter-chip rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-2 text-left text-sm text-slate-200 hover:border-sky-400/60">Slowest Units</button>
+              <button data-filter="stage-average" class="filter-chip rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-2 text-left text-sm text-slate-200 hover:border-sky-400/60">Average Stage Speeds</button>
+            </div>
+            <div class="mt-4 overflow-hidden rounded-2xl border border-white/5">
+              <table class="w-full text-left text-sm text-slate-200">
+                <thead class="bg-white/5 text-xs uppercase tracking-widest text-slate-400">
+                  <tr>
+                    <th class="px-4 py-3">Unit / Stage</th>
+                    <th class="px-4 py-3">Stage</th>
+                    <th class="px-4 py-3">Velocity</th>
+                    <th class="px-4 py-3">Dwell</th>
+                    <th class="px-4 py-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="sensorRows" class="divide-y divide-white/5 bg-slate-950/60"></tbody>
+              </table>
+            </div>
+            <p class="mt-3 text-sm text-slate-400">Use the filter chips to highlight cohorts, surface extremes, or summarize speed by stage.</p>
+          </div>
+
+          <div class="rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-2xl">
+            <div class="flex items-center justify-between">
+              <p class="text-xs uppercase tracking-[0.4em] text-slate-400">AI Alerts & Recommendations</p>
+              <span class="text-xs text-amber-300">Continuously updated</span>
+            </div>
+            <ul id="alerts" class="mt-4 space-y-3 text-sm text-slate-200"></ul>
+          </div>
+
+          <div class="rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-2xl">
+            <p class="text-xs uppercase tracking-[0.4em] text-slate-400">Prompting Sandbox</p>
+            <div class="mt-4 space-y-4 text-sm text-slate-300">
+              <div>
+                <p class="font-semibold text-white">Prototype Prompt</p>
+                <p class="mt-1 text-slate-400">Generate a Star Chart Systems dashboard focused on live floor visualization, alerting, and LLM chat.</p>
+              </div>
+              <div>
+                <p class="font-semibold text-white">ML Prompt</p>
+                <p class="mt-1 text-slate-400">Design a time-series anomaly model that ingests quarter-second x/y telemetry, identifies sequential constraints, and outputs recommendations plus confidence.</p>
+              </div>
+            </div>
+            <div class="mt-5 space-y-3">
+              <label class="text-xs uppercase tracking-[0.4em] text-slate-400" for="chatInput">LLM Chat Prototype</label>
+              <textarea id="chatInput" class="h-24 w-full rounded-2xl border border-white/10 bg-slate-950/70 p-3 text-sm text-white placeholder:text-slate-500" placeholder="Ask Star Chart Systems about the current constellation..."></textarea>
+              <button id="chatSend" class="w-full rounded-2xl bg-emerald-400/90 px-4 py-3 text-sm font-semibold text-emerald-950 transition hover:bg-emerald-300">Send to AI</button>
+              <div id="chatLog" class="space-y-2 text-sm text-slate-300"></div>
+            </div>
+          </div>
+        </aside>
+        </div>
+      </main>
     </div>
 
-    <script src="content.js"></script>
     <script>
-      (function () {
-        const data = window.PRD_CONTENT || {};
+      const FACTORY_WIDTH = 70; // meters
+      const FACTORY_HEIGHT = 50; // meters
+      const UPDATE_INTERVAL = 1 / 12; // seconds (12 Hz)
+      const UPDATE_MS = Math.round(UPDATE_INTERVAL * 1000);
 
-        const heroRoot = document.getElementById("hero");
-        if (heroRoot && data.hero) {
-          heroRoot.innerHTML = "";
-          if (data.hero.label) {
-            const pill = document.createElement("span");
-            pill.className = "pill";
-            pill.textContent = data.hero.label;
-            heroRoot.appendChild(pill);
-          }
-          if (data.hero.title) {
-            const title = document.createElement("h1");
-            title.textContent = data.hero.title;
-            heroRoot.appendChild(title);
-          }
+      const stageBands = [
+        { until: 0.16, stage: "Raw Receiving" },
+        { until: 0.33, stage: "Prep & Mixing" },
+        { until: 0.55, stage: "Formulation Cells" },
+        { until: 0.72, stage: "Quality & Inspection" },
+        { until: 0.88, stage: "Packaging Hall" },
+        { until: 1, stage: "Outbound & Shipping" },
+      ];
 
-          const portrait = document.createElement("img");
-          portrait.src = "photos/PeterGibbons.png";
-          portrait.alt = "Portrait of Peter J. Gibbons";
-          portrait.className = "hero-photo";
-          heroRoot.appendChild(portrait);
+      const pathNodesNormalized = [
+        // Dock to receiving rooms
+        { x: 0.08, y: 0.9 },
+        { x: 0.08, y: 0.78 },
+        { x: 0.08, y: 0.62 },
+        { x: 0.08, y: 0.45 },
+        // Cross into main warehouse along top passage
+        { x: 0.15, y: 0.4 },
+        { x: 0.28, y: 0.38 },
+        { x: 0.4, y: 0.37 },
+        { x: 0.52, y: 0.36 },
+        { x: 0.65, y: 0.36 },
+        { x: 0.78, y: 0.37 },
+        { x: 0.9, y: 0.38 },
+        // Sweep upper-right rooms clockwise
+        { x: 0.92, y: 0.48 },
+        { x: 0.92, y: 0.62 },
+        { x: 0.9, y: 0.73 },
+        // Drop into mid aisle and move left
+        { x: 0.78, y: 0.7 },
+        { x: 0.65, y: 0.68 },
+        { x: 0.52, y: 0.66 },
+        { x: 0.4, y: 0.65 },
+        { x: 0.28, y: 0.64 },
+        { x: 0.18, y: 0.64 },
+        // Loop around lower block
+        { x: 0.16, y: 0.74 },
+        { x: 0.2, y: 0.82 },
+        { x: 0.3, y: 0.86 },
+        { x: 0.45, y: 0.88 },
+        { x: 0.62, y: 0.88 },
+        { x: 0.76, y: 0.86 },
+        { x: 0.86, y: 0.84 },
+        // Exit toward outbound
+        { x: 0.9, y: 0.78 },
+        { x: 0.92, y: 0.68 },
+        { x: 0.94, y: 0.58 },
+        { x: 0.94, y: 0.48 },
+        { x: 0.92, y: 0.38 },
+        { x: 0.86, y: 0.3 },
+        { x: 0.74, y: 0.28 },
+        { x: 0.6, y: 0.27 },
+        { x: 0.45, y: 0.28 },
+        { x: 0.32, y: 0.28 },
+        { x: 0.2, y: 0.3 },
+        { x: 0.12, y: 0.32 },
+        { x: 0.08, y: 0.38 },
+        { x: 0.08, y: 0.52 },
+        { x: 0.08, y: 0.7 },
+        { x: 0.08, y: 0.85 },
+        { x: 0.08, y: 0.9 },
+      ];
 
-          if (data.hero.description) {
-            const description = document.createElement("p");
-            description.textContent = data.hero.description;
-            heroRoot.appendChild(description);
+      const pathNodes = pathNodesNormalized.map((node) => ({
+        x: node.x * FACTORY_WIDTH,
+        y: node.y * FACTORY_HEIGHT,
+      }));
+
+      const pathSegments = [];
+      let totalPathLength = 0;
+      for (let i = 0; i < pathNodes.length - 1; i++) {
+        const start = pathNodes[i];
+        const end = pathNodes[i + 1];
+        const length = Math.hypot(end.x - start.x, end.y - start.y);
+        totalPathLength += length;
+        pathSegments.push({ start, end, length, cumulative: totalPathLength });
+      }
+
+      function getPointAt(progress) {
+        const targetDistance = progress * totalPathLength;
+        for (const segment of pathSegments) {
+          const prevCum = segment.cumulative - segment.length;
+          if (targetDistance <= segment.cumulative) {
+            const ratio = (targetDistance - prevCum) / segment.length;
+            return {
+              x: segment.start.x + (segment.end.x - segment.start.x) * ratio,
+              y: segment.start.y + (segment.end.y - segment.start.y) * ratio,
+            };
           }
-          if (Array.isArray(data.hero.meta) && data.hero.meta.length) {
-            const metaList = document.createElement("ul");
-            metaList.className = "content-list";
-            data.hero.meta.forEach((entry) => {
-              const li = document.createElement("li");
-              const strong = document.createElement("strong");
-              strong.textContent = entry.label;
-              li.appendChild(strong);
-              const copy = document.createElement("p");
-              copy.textContent = entry.body;
-              li.appendChild(copy);
-              metaList.appendChild(li);
+        }
+        return pathNodes[pathNodes.length - 1];
+      }
+
+      function getStage(progress) {
+        for (const band of stageBands) {
+          if (progress <= band.until) return band.stage;
+        }
+        return stageBands[stageBands.length - 1].stage;
+      }
+
+      const UNIT_COUNT = 100;
+      const sensors = Array.from({ length: UNIT_COUNT }, (_, idx) => {
+        const spacing = 1 / UNIT_COUNT;
+        const progress = (1 - idx * spacing + 1) % 1;
+        const point = getPointAt(progress);
+        return {
+          id: `SC-${idx + 1}`,
+          progress,
+          x: point.x,
+          y: point.y,
+          velocity: "0.00",
+          dwell: "0.0",
+          status: "Flowing",
+          statusColor: "text-emerald-300",
+          delay: 0,
+          eventTimer: 0,
+          history: [{ x: point.x, y: point.y }],
+        };
+      });
+      let headProgressAbsolute = sensors[0].progress;
+      let baseSpeedMps = 0.65;
+      let targetSpeedMps = 0.75;
+      const MAX_SPEED = 1;
+      const secondHighlightsBuffer = Array(6).fill(0);
+      const stationNames = [...new Set(stageBands.map((band) => band.stage))];
+
+      const alertsList = [
+        "QA dwell cresting above baseline by 18%.",
+        "Assembly detail cell trending toward saturation; recommend short buffer increase.",
+        "Welding satellite B shows micro-stop spikes (+12/min).",
+        "Packaging conveyor aligned; backlog dissipating.",
+        "Cycle variance stabilized; revert staffing to nominal.",
+        "Cutting stage thermal alarm cleared; continue monitoring velocity jitter.",
+      ];
+
+      const canvas = document.getElementById("factoryCanvas");
+      const ctx = canvas.getContext("2d");
+
+      function resizeCanvas() {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+      }
+
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      function drawFactory() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "rgba(2, 6, 23, 0.2)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = "rgba(82, 101, 143, 0.2)";
+        ctx.lineWidth = 1;
+        const cols = 4;
+        const rows = 3;
+        for (let i = 1; i < cols; i++) {
+          const x = (canvas.width / cols) * i;
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, canvas.height);
+          ctx.stroke();
+        }
+        for (let j = 1; j < rows; j++) {
+          const y = (canvas.height / rows) * j;
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+          ctx.stroke();
+        }
+
+        sensors.forEach((sensor) => {
+          if (sensor.history.length > 1) {
+            ctx.beginPath();
+            sensor.history.forEach((point, idx) => {
+              const px = (point.x / FACTORY_WIDTH) * canvas.width;
+              const py = (point.y / FACTORY_HEIGHT) * canvas.height;
+              if (idx === 0) ctx.moveTo(px, py);
+              else ctx.lineTo(px, py);
             });
-            heroRoot.appendChild(metaList);
+            ctx.strokeStyle = sensor.status === "Hold" ? "rgba(244,63,94,0.6)" : sensor.status === "Watch" ? "rgba(251,191,36,0.6)" : "rgba(45,212,191,0.6)";
+            ctx.lineWidth = 2;
+            ctx.stroke();
           }
-        }
 
-        const contentRoot = document.getElementById("content");
-        const projects = Array.isArray(data.projects) ? data.projects : [];
+          const dotX = (sensor.x / FACTORY_WIDTH) * canvas.width;
+          const dotY = (sensor.y / FACTORY_HEIGHT) * canvas.height;
+          ctx.fillStyle = sensor.status === "Hold" ? "#f43f5e" : sensor.status === "Watch" ? "#fbbf24" : "#34d399";
+          ctx.beginPath();
+          ctx.arc(dotX, dotY, 6, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = "#e2e8f0";
+          ctx.font = "10px Inter, sans-serif";
+          ctx.fillText(sensor.id, dotX + 8, dotY - 8);
+        });
+      }
 
-        if (contentRoot && projects.length) {
-          projects.forEach((project) => {
-            const node = document.createElement("section");
-            node.className = "timeline-item";
+      let metricTick = 0;
 
-            if (project.title) {
-              const title = document.createElement("h3");
-              title.textContent = project.title;
-              node.appendChild(title);
+      function updateSensors() {
+        baseSpeedMps += (targetSpeedMps - baseSpeedMps) * 0.08;
+        baseSpeedMps = Math.min(MAX_SPEED, Math.max(0.2, baseSpeedMps));
+        const spacing = 1 / sensors.length;
+        const minGap = spacing * 0.9;
+        const progressDelta = (baseSpeedMps * UPDATE_INTERVAL) / totalPathLength;
+        headProgressAbsolute += progressDelta;
+        let previousAbs = headProgressAbsolute + spacing;
+
+        sensors.forEach((sensor, idx) => {
+          if (sensor.eventTimer > 0) {
+            sensor.eventTimer -= UPDATE_INTERVAL;
+            if (sensor.eventTimer <= 0) {
+              sensor.status = "Flowing";
+              sensor.statusColor = "text-emerald-300";
             }
+          }
+          sensor.delay *= 0.94;
+          let absoluteProgress = headProgressAbsolute - idx * spacing - sensor.delay;
+          if (absoluteProgress > previousAbs - minGap) {
+            absoluteProgress = previousAbs - minGap;
+          }
+          sensor.progress = ((absoluteProgress % 1) + 1) % 1;
+          previousAbs = absoluteProgress;
+          const point = getPointAt(sensor.progress);
+          sensor.x = point.x;
+          sensor.y = point.y;
+          sensor.stage = getStage(sensor.progress);
+          const sensorSpeed = Math.max(0.2, Math.min(MAX_SPEED, baseSpeedMps - sensor.delay * 1.5 + (Math.random() - 0.5) * 0.1));
+          sensor.velocity = sensorSpeed.toFixed(2);
+          const dwellSeconds = Math.max(8, (totalPathLength / Math.max(sensorSpeed, 0.1)) * 0.35);
+          sensor.dwell = dwellSeconds.toFixed(1);
+          sensor.history.push({ x: sensor.x, y: sensor.y });
+          if (sensor.history.length > 400) sensor.history.shift();
+        });
 
-            if (project.date) {
-              const date = document.createElement("p");
-              date.className = "timeline-date";
-              date.textContent = project.date;
-              node.appendChild(date);
-            }
+        renderSensorTable(activeFilter);
+        updateStationStatuses();
+      if (metricTick % 4 === 0) updateMetrics();
+        metricTick += 1;
+        drawFactory();
+      }
 
-            if (project.description) {
-              const description = document.createElement("p");
-              description.className = "timeline-description";
-              description.textContent = project.description;
-              node.appendChild(description);
-            }
+      function triggerTrafficPulse() {
+        targetSpeedMps = 0.4 + Math.random() * 0.5;
+      }
 
-            if (project.image) {
-              const img = document.createElement("img");
-              img.src = project.image;
-              img.alt = project.imageAlt || project.title || "Project image";
-              img.className = "media-image";
-              node.appendChild(img);
-            }
+      function triggerPhenomenon() {
+        const sensor = sensors[Math.floor(Math.random() * sensors.length)];
+        sensor.delay += 0.02 + Math.random() * 0.06;
+        sensor.eventTimer = 1.5 + Math.random() * 2;
+        sensor.status = sensor.delay > 0.08 ? "Watch" : "Flowing";
+        sensor.statusColor = sensor.status === "Watch" ? "text-amber-300" : "text-emerald-300";
+        targetSpeedMps = Math.max(0.5, targetSpeedMps * 0.95);
+        updateAlerts();
+      }
 
-            if (project.download || (project.links && project.links.length)) {
-              const links = document.createElement("div");
-              links.className = "resource-links";
+      function renderSensorTable(filter = "all") {
+        const tbody = document.getElementById("sensorRows");
+        let rowsHtml = "";
 
-              if (project.download) {
-                const downloadLink = document.createElement("a");
-                downloadLink.href = project.download;
-                downloadLink.textContent = project.downloadLabel || "Download";
-                downloadLink.setAttribute("download", "");
-                downloadLink.target = "_blank";
-                downloadLink.rel = "noopener noreferrer";
-                links.appendChild(downloadLink);
-              }
-
-              if (project.links && project.links.length) {
-                project.links.forEach((link) => {
-                  const anchor = document.createElement("a");
-                  anchor.href = link.href;
-                  anchor.textContent = link.label;
-                  anchor.target = link.target || "_blank";
-                  anchor.rel = "noopener noreferrer";
-                  links.appendChild(anchor);
-                });
-              }
-
-              node.appendChild(links);
-            }
-
-            contentRoot.appendChild(node);
+        if (filter === "stage-average") {
+          const stageGroups = {};
+          sensors.forEach((sensor) => {
+            if (!stageGroups[sensor.stage]) stageGroups[sensor.stage] = [];
+            stageGroups[sensor.stage].push(sensor);
           });
-        }
-
-        if (contentRoot && data.contact) {
-          const contactSection = document.createElement("section");
-          contactSection.classList.add("contact-card");
-          if (data.contact.title) {
-            const title = document.createElement("h2");
-            title.textContent = data.contact.title;
-            contactSection.appendChild(title);
-          }
-          if (data.contact.body) {
-            const copy = document.createElement("p");
-            copy.textContent = data.contact.body;
-            contactSection.appendChild(copy);
-          }
-          const actions = document.createElement("div");
-          actions.className = "contact-actions";
-          contactSection.appendChild(actions);
-
-          if (data.contact.buttonText && data.contact.href) {
-            const button = document.createElement("a");
-            button.className = "contact-button";
-            button.href = data.contact.href;
-            button.textContent = data.contact.buttonText;
-            button.target = "_blank";
-            button.rel = "noopener noreferrer";
-            if (data.contact.target) {
-              button.target = data.contact.target;
-            }
-            actions.appendChild(button);
+          rowsHtml = Object.entries(stageGroups)
+            .map(([stage, list]) => {
+              const avgVelocity =
+                list.reduce((sum, s) => sum + parseFloat(s.velocity), 0) / list.length;
+              const avgDwell =
+                list.reduce((sum, s) => sum + parseFloat(s.dwell), 0) / list.length;
+              return `
+                <tr>
+                  <td class="px-4 py-3 font-semibold text-sky-300">${stage}</td>
+                  <td class="px-4 py-3">${list.length} units</td>
+                  <td class="px-4 py-3">${avgVelocity.toFixed(2)} m/s</td>
+                  <td class="px-4 py-3">${avgDwell.toFixed(1)}s</td>
+                  <td class="px-4 py-3 text-slate-500">—</td>
+                </tr>
+              `;
+            })
+            .join("");
+        } else {
+          let list = [...sensors];
+          if (filter === "fastest") {
+            list.sort((a, b) => parseFloat(b.velocity) - parseFloat(a.velocity));
+            list = list.slice(0, 10);
+          } else if (filter === "slowest") {
+            list.sort((a, b) => parseFloat(a.velocity) - parseFloat(b.velocity));
+            list = list.slice(0, 10);
           }
 
-          const linkedinButton = document.createElement("a");
-          linkedinButton.className = "contact-button secondary";
-          linkedinButton.href = "https://www.linkedin.com/in/peter-gibbons7";
-          linkedinButton.textContent = "LinkedIn";
-          linkedinButton.target = "_blank";
-          linkedinButton.rel = "noopener noreferrer";
-          actions.appendChild(linkedinButton);
-          contentRoot.appendChild(contactSection);
+          rowsHtml = list
+            .map(
+              (sensor) => `
+                <tr>
+                  <td class="px-4 py-3 font-semibold text-white">${sensor.id}</td>
+                  <td class="px-4 py-3">${sensor.stage}</td>
+                  <td class="px-4 py-3">${sensor.velocity} m/s</td>
+                  <td class="px-4 py-3">${sensor.dwell}s</td>
+                  <td class="px-4 py-3"><span class="${sensor.statusColor}">${sensor.status}</span></td>
+                </tr>
+              `
+            )
+            .join("");
         }
 
-        const footerNote = document.getElementById("footer-note");
-        if (footerNote && data.footerNote) {
-          footerNote.textContent = data.footerNote;
-        }
+        tbody.innerHTML = rowsHtml;
+      }
 
-        const header = document.querySelector(".page-header");
-        const heroElement = document.getElementById("hero");
-        if (header) {
-          const distance = (data.hero && data.hero.shrinkDistance) ? data.hero.shrinkDistance : 160;
-          const startBuffer = (data.hero && data.hero.shrinkOffset) ? data.hero.shrinkOffset : 20;
-          const minOpacity = 0.06;
-          const maxOpacity = 0.18;
-          const THRESH_ON = 0.82;
-          const THRESH_OFF = 0.68;
+      function getSpeedColor(speed) {
+        if (speed >= 0.9) return { bg: "rgba(16,185,129,0.9)", text: "#022c22" };
+        if (speed >= 0.7) return { bg: "rgba(14,165,233,0.85)", text: "#032030" };
+        if (speed >= 0.5) return { bg: "rgba(59,130,246,0.85)", text: "#020617" };
+        if (speed >= 0.3) return { bg: "rgba(251,191,36,0.85)", text: "#0f172a" };
+        return { bg: "rgba(248,113,113,0.85)", text: "#0f172a" };
+      }
 
-          const clampProgress = (progress) => Math.max(0, Math.min(progress, 1));
+      function updateSecondHighlightUI() {
+        const container = document.getElementById("secondHighlights");
+        if (!container) return;
+        container.innerHTML = secondHighlightsBuffer
+          .map((speed, idx) => {
+            const label = idx === 0 ? "t-0s" : `t-${idx}s`;
+            const { bg, text } = getSpeedColor(speed);
+            return `<span class="rounded-full px-3 py-1 text-xs font-semibold" style="background:${bg};color:${text}">${label}</span>`;
+          })
+          .join("");
+      }
 
-          const applyProgress = (progress) => {
-            const clamped = clampProgress(progress);
-            header.style.setProperty("--shrink-progress", clamped.toFixed(3));
-            const opacity = maxOpacity - (maxOpacity - minOpacity) * clamped;
-            header.style.setProperty("--hero-bg-opacity", opacity.toFixed(3));
+      function recordSecondHighlight() {
+        const avgVelocity =
+          sensors.reduce((sum, sensor) => sum + parseFloat(sensor.velocity || 0), 0) / sensors.length || 0;
+        secondHighlightsBuffer.unshift(avgVelocity);
+        if (secondHighlightsBuffer.length > 6) secondHighlightsBuffer.pop();
+        updateSecondHighlightUI();
+      }
 
-            if (heroElement) {
-              const photo = heroElement.querySelector(".hero-photo");
-              if (photo) {
-                if (!photo.dataset.baseHeight || !photo.dataset.baseMargin) {
-                  const rect = photo.getBoundingClientRect();
-                  if (!photo.dataset.baseHeight) {
-                    photo.dataset.baseHeight = String(rect.height || photo.offsetHeight || 160);
-                  }
-                  if (!photo.dataset.baseMargin) {
-                    const computed = parseFloat(window.getComputedStyle(photo).marginTop) || 16;
-                    photo.dataset.baseMargin = String(computed);
-                  }
-                }
-
-                const baseHeight = parseFloat(photo.dataset.baseHeight || '160');
-                const baseMargin = parseFloat(photo.dataset.baseMargin || '16');
-                const delayed = Math.max(0, clamped - 0.1);
-                const scale = Math.max(0.45, 1 - delayed * 0.7);
-                const fade = Math.max(0, 1 - delayed * 1.2);
-                const clampedHeight = Math.max(0, baseHeight * (1 - delayed * 1.1));
-                const clampedMargin = Math.max(0, baseMargin * (1 - delayed * 1.1));
-
-                photo.style.transform = `scale(${scale.toFixed(3)})`;
-                photo.style.opacity = fade.toFixed(3);
-                photo.style.maxHeight = `${clampedHeight.toFixed(1)}px`;
-                photo.style.marginTop = `${clampedMargin.toFixed(1)}px`;
-                photo.style.marginBottom = `${clampedMargin.toFixed(1)}px`;
-                photo.style.pointerEvents = fade <= 0.05 ? 'none' : '';
-              }
-
-              const isCompact = heroElement.classList.contains("hero--compact");
-              if (!isCompact && clamped >= THRESH_ON) {
-                heroElement.classList.add("hero--compact");
-              } else if (isCompact && clamped <= THRESH_OFF) {
-                heroElement.classList.remove("hero--compact");
-              }
+      function updateStationStatuses() {
+        const container = document.getElementById("stationStatus");
+        if (!container) return;
+        container.innerHTML = stationNames
+          .map((stage) => {
+            const members = sensors.filter((sensor) => sensor.stage === stage);
+            const avgVelocity = members.length
+              ? members.reduce((sum, s) => sum + parseFloat(s.velocity || 0), 0) / members.length
+              : 0;
+            const avgDwell = members.length
+              ? members.reduce((sum, s) => sum + parseFloat(s.dwell || 0), 0) / members.length
+              : 0;
+            let status = "Flowing";
+            let badgeClass = "text-emerald-300";
+            if (members.length === 0) {
+              status = "Idle";
+              badgeClass = "text-slate-400";
+            } else if (avgVelocity < 0.5 || avgDwell > 40) {
+              status = "Watch";
+              badgeClass = "text-amber-300";
             }
-          };
+            return `
+              <div class="rounded-2xl border border-white/10 bg-slate-950/60 p-3">
+                <div class="flex items-center justify-between">
+                  <p class="font-semibold text-white">${stage}</p>
+                  <span class="text-xs font-semibold uppercase tracking-widest ${badgeClass}">${status}</span>
+                </div>
+                <p class="mt-2 text-xs text-slate-400">${members.length} units · ${avgVelocity.toFixed(2)} m/s · ${avgDwell.toFixed(1)}s dwell</p>
+              </div>
+            `;
+          })
+          .join("");
+      }
 
-          const compute = () => {
-            const raw = (window.scrollY - startBuffer) / distance;
-            return clampProgress(raw);
-          };
+      function updateAlerts() {
+        const alerts = document.getElementById("alerts");
+        const newAlert = alertsList[Math.floor(Math.random() * alertsList.length)];
+        const timestamp = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+        const alertItem = document.createElement("li");
+        alertItem.innerHTML = `<p class="text-white">${timestamp}</p><p class="text-slate-300">${newAlert}</p>`;
+        alerts.prepend(alertItem);
+        while (alerts.children.length > 5) alerts.lastChild.remove();
+      }
 
-          let scheduled = false;
-          let pending = compute();
+      function updateMetrics() {
+        const cycle = (14 + Math.random() * 8).toFixed(1);
+        const throughput = Math.floor(140 + Math.random() * 50);
+        const riskLevels = ["Low", "Moderate", "Elevated"];
+        document.getElementById("metric-cycle").textContent = `${cycle}s`;
+        document.getElementById("metric-throughput").textContent = throughput;
+        document.getElementById("metric-risk").textContent = riskLevels[Math.floor(Math.random() * riskLevels.length)];
+      }
 
-          const schedule = (progress) => {
-            pending = progress;
-            if (!scheduled) {
-              scheduled = true;
-              requestAnimationFrame(() => {
-                scheduled = false;
-                applyProgress(pending);
-              });
-            }
-          };
+      let activeFilter = "all";
 
-          schedule(pending);
-          window.addEventListener("scroll", () => schedule(compute()), { passive: true });
-          window.addEventListener("resize", () => schedule(compute()));
-        }
-      })();
+      function setupFilters() {
+        const chips = document.querySelectorAll(".filter-chip");
+        chips.forEach((chip) => {
+          chip.addEventListener("click", () => {
+            activeFilter = chip.dataset.filter;
+            chips.forEach((c) => c.classList.toggle("border-sky-400/60", c === chip));
+            renderSensorTable(activeFilter);
+          });
+        });
+      }
+
+      function setupChat() {
+        const chatInput = document.getElementById("chatInput");
+        const chatLog = document.getElementById("chatLog");
+        document.getElementById("chatSend").addEventListener("click", () => {
+          const question = chatInput.value.trim();
+          if (!question) return;
+          const response = document.createElement("div");
+          response.innerHTML = `
+            <p class="font-semibold text-white">You</p>
+            <p class="text-slate-400">${question}</p>
+            <p class="mt-2 font-semibold text-emerald-300">Star Chart AI</p>
+            <p class="text-slate-300">Latest telemetry shows ${sensors[0].stage} trending toward constraint with dwell ${sensors[0].dwell}s. Recommend balancing work content or extending buffer.</p>
+          `;
+          chatLog.prepend(response);
+          chatInput.value = "";
+        });
+      }
+
+      renderSensorTable(activeFilter);
+      updateStationStatuses();
+      updateSecondHighlightUI();
+      drawFactory();
+      updateAlerts();
+      updateMetrics();
+      setupChat();
+      setupFilters();
+
+      setInterval(updateSensors, UPDATE_MS); // 12 Hz high-resolution feed
+      setInterval(updateAlerts, 5000);
+      setInterval(triggerTrafficPulse, 6000);
+      setInterval(triggerPhenomenon, 12000);
+      setInterval(recordSecondHighlight, 1000);
     </script>
   </body>
 </html>
